@@ -1,0 +1,27 @@
+name: GitHub Actions Demo Day 1
+
+on: 
+  push:
+    branches: [main]
+    paths-ignore: [.github/**]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '15 6 * * 0'
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo " The job was triggerd by this event: ${{ github.event_name }}"
+          echo " The name of my branch is ${{ github.ref } and your repository is ${{ github.repository }}."
+
+      - uses: actions/checkout@v4
+
+      - name: List all files in the repo
+        run: |
+          echo "The repository ${{ github.repository }} contains the following files:"
+          tree
+    
